@@ -14,10 +14,7 @@ def register():
         name = request.form['name']
         email = request.form['email']
         pwd = request.form['password']
-
-        print(name,email, pwd)
-        print('Entrou aqui')
-
+        
         if name and email and pwd:
             user = User(name,email,pwd)
             db.session.add(user)
