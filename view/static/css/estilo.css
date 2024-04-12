@@ -1,0 +1,20 @@
+/* Estilos personalizados aqui */
+.anuncio-superior, .anuncio-inferior {
+    background-color: #f8f9fa; /* Cor de fundo dos anúncios */
+    padding: 10px;
+    text-align: center;
+  }
+
+  .anuncio-lateral {
+    background-color: #f8f9fa; /* Cor de fundo dos anúncios */
+    padding: 10px;
+    text-align: center;
+    position: fixed;
+    top: 0;
+  }
+
+  .meu_conteudo{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    
+  }

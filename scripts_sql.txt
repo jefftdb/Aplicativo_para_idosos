@@ -1,0 +1,11 @@
+create database idosos;
+
+use idosos;
+
+#create table users(
+id int primary key auto_increment,
+nome varchar(100),
+email varchar(150),
+password varchar(255)
+);
+
