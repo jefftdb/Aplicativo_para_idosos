@@ -2,10 +2,64 @@ create database idosos;
 
 use idosos;
 
-#create table users(
+create table users(
 id int primary key auto_increment,
 nome varchar(100),
 email varchar(150),
 password varchar(255)
 );
 
+select * from users; 
+
+create table categoria(
+id int primary key auto_increment,
+nome varchar(100)
+);
+
+create table lista_videos(
+id int primary key auto_increment,
+url_lista varchar(255),
+titulo varchar(255),
+id_categoria int,
+id_user int,
+
+constraint foreign key (id_categoria) references categoria(id),
+constraint foreign key (id_user) references users(id)
+);
+
+create table video(
+id int primary key auto_increment,
+titulo varchar(255),
+url_video varchar(255),
+id_lista int,
+
+constraint foreign key (id_lista) references lista_videos(id)
+);
+
+create table jogo(
+id int primary key auto_increment,
+nome varchar(255),
+url_jogo varchar(255)
+);
+
+create table usuario_jogo(
+id_jogo int,
+id_user int,
+
+constraint foreign key (id_user) references users(id),
+constraint foreign key (id_jogo) references jogo(id)
+);
+
+create table lista_favorito(
+id int primary key auto_increment,
+url_lista varchar(255),
+titulo varchar(255)
+);
+
+create table usuario_lista_favorito(
+id_user int,
+id_lista_favorito int,
+
+constraint foreign key (id_user) references users(id),
+constraint foreign key (id_lista_favorito) references lista_favorito(id)
+);
