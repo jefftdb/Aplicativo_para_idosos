@@ -8,6 +8,12 @@
     <ul>
         {% for lista in lista_videos %}
         <li>{{ lista.titulo}}</li>
+        {% for video in videos%}         
+         <video width="320" height="240" controls>
+          <source src="{{ url_for('static', filename = video.url_video)}}" type="video/mp4">        
+        </video>
+         
+        {% endfor%}
         {% endfor %}
     </ul>
 

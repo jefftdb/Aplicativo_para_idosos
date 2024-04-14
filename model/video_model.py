@@ -1,4 +1,3 @@
-from model.login_model import User
 from app import db
 
 class Categoria(db.Model):
@@ -20,13 +19,15 @@ class Lista_videos(db.Model):
     titulo = db.Column(db.String(255),nullable = False)
     id_user = db.Column(db.Integer, db.ForeignKey("users.id"))
     id_categoria = db.Column(db.Integer, db.ForeignKey("categoria.id"))
+    
 
     def get_lista_videos(self):
-        return Lista_videos.query.all()
+        return self.query.all()
     
-    def get_lista_user(self,id):
-        return Lista_videos.query.filter_by(id_user = id)
+    def get_lista_user(self,id):        
+        return self.query.filter_by(id_user = id)
 
+ 
 class Video(db.Model):
     __tablename__ = 'video'
     id = db.Column(db.Integer, autoincrement = True, primary_key=True)
@@ -34,15 +35,17 @@ class Video(db.Model):
     url_video = db.Column(db.String(255),nullable = False)
     id_lista = db.Column(db.Integer, db.ForeignKey("lista_videos.id"))
 
+    def get_videos(self,id):        
+        return Video().query.filter_by(id_lista = id) 
+    
+
 class Lista_favorito(db.Model):
     __tablename__ = 'lista_favorito'
     id = db.Column(db.Integer, autoincrement = True, primary_key=True)
     url_lista = db.Column(db.String(255),nullable = False)
     titulo = db.Column(db.String(255),nullable = False)
 
-    def get_lista_favorito_user(self,id):
-        return Lista_favorito.query.filter_by(id_user = id)
-
+    
 usuario_lista_favorito = db.Table(
     'usuario_lista_favorito',
     db.Column("users", db.ForeignKey("users.id")),
