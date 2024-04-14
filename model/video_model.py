@@ -23,6 +23,9 @@ class Lista_videos(db.Model):
 
     def get_lista_videos(self):
         return Lista_videos.query.all()
+    
+    def get_lista_user(self,id):
+        return Lista_videos.query.filter_by(id_user = id)
 
 class Video(db.Model):
     __tablename__ = 'video'
@@ -31,11 +34,14 @@ class Video(db.Model):
     url_video = db.Column(db.String(255),nullable = False)
     id_lista = db.Column(db.Integer, db.ForeignKey("lista_videos.id"))
 
-class Lista_favorito(db.model):
+class Lista_favorito(db.Model):
     __tablename__ = 'lista_favorito'
     id = db.Column(db.Integer, autoincrement = True, primary_key=True)
     url_lista = db.Column(db.String(255),nullable = False)
     titulo = db.Column(db.String(255),nullable = False)
+
+    def get_lista_favorito_user(self,id):
+        return Lista_favorito.query.filter_by(id_user = id)
 
 usuario_lista_favorito = db.Table(
     'usuario_lista_favorito',

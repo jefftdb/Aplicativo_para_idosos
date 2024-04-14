@@ -13,6 +13,7 @@ login_manager = LoginManager(app)
 db = SQLAlchemy(app)
 
 from controller.login_controller import *
+from controller.lista_videos_controller import *
 
 if __name__ == "__main__":
     app.run(debug=True)

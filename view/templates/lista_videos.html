@@ -1,0 +1,20 @@
+
+{% extends 'base-template.html' %}
+{% block header %}
+{{ super() }}
+{% endblock header %}
+{% block conteudo %}
+  <div class="row mb-3 col-md-6 offset-md-3">
+    <ul>
+        {% for lista in lista_videos %}
+        <li>{{ lista.titulo}}</li>
+        {% endfor %}
+    </ul>
+
+  </div>
+
+  {% endblock conteudo %}
+
+  {% block footer %}
+  {{ super() }}
+  {% endblock footer %}

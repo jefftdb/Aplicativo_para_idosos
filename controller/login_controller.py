@@ -36,6 +36,9 @@ def login():
         if not user or not user.verify_password(pwd):
             return redirect(url_for('login'))
         
+        
+        
+            
         login_user(user)
         return redirect(url_for('index'))
 
