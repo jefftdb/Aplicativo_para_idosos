@@ -19,13 +19,15 @@ class Lista_videos(db.Model):
     titulo = db.Column(db.String(255),nullable = False)
     id_user = db.Column(db.Integer, db.ForeignKey("users.id"))
     id_categoria = db.Column(db.Integer, db.ForeignKey("categoria.id"))
-    
 
+   
     def get_lista_videos(self):
         return self.query.all()
     
-    def get_lista_user(self,id):        
-        return self.query.filter_by(id_user = id)
+    def get_lista_user(self,id_lista):        
+        return self.query.filter_by(id = id_lista)
+    
+    
 
  
 class Video(db.Model):

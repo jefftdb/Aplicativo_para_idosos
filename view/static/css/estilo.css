@@ -19,3 +19,12 @@
    
  
   }
+
+  .meu-ul{
+    padding: 50px;
+  }
+
+  .meu_video{
+    padding: 10px;
+    border: solid 1px grey;
+  }

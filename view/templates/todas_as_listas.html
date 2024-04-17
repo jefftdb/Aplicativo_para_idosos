@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="{{url_for('static', filename = 'css/bootstrap.min.css')}}" rel="stylesheet">
+  <link href="{{url_for('static', filename = 'css/estilo.css')}}" rel="stylesheet">
+</head>
+
+<body>
+    {% block header %}
+    {% if current_user.is_authenticated: %} 
+
+    <div class="row mb-2 col-md-8 offset-md-2">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand">Bem vindo(a)! Sr(a) {{ current_user.nome }}</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNavAltMarkup">               
+                <div class="navbar-nav">
+                  <a class="nav-link" aria-current="page" href="{{url_for('index')}}">Início</a>
+                  <a class="nav-link" href="{{url_for('logout')}}">Sair</a>
+                  <a class="nav-link" href="{{url_for('lista_videos',id = current_user.id )}}">Meus Cursos</a>
+                  <a class="nav-link" href="{{url_for('lista_favoritos',id = current_user.id )}}">Meus favoritos</a>
+                </div>
+                
+              </div>
+              <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="pesquisar" aria-label="Pesquisar">
+                <button class="btn btn-outline-success" type="submit">Pesquisar</button>
+            </form>
+            </div>
+          </nav>
+               
+              
+      </div>
+
+   
+      
+      {% else %}
+
+      <div class="row mb-2 col-md-8 offset-md-2">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand">Bem vindo(a)!</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNavAltMarkup">               
+                <div class="navbar-nav">
+                  <a class="nav-link" aria-current="page" href="{{url_for('index')}}">Início</a>
+                  <a class="nav-link" href="{{url_for('register')}}">Cadastrar</a>
+                  <a class="nav-link" href="{{url_for('login')}}">Entrar</a>
+                </div>
+                
+              </div>
+              <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="pesquisar" aria-label="Pesquisar">
+                <button class="btn btn-outline-success" type="submit">Pesquisar</button>
+            </form>
+            </div>
+          </nav>
+               
+              
+      </div>
+         
+      {% endif %}
+      {% endblock header %}
+
+      {% block conteudo %}
+      <div class="row mb-3 col-md-6 offset-md-3">
+    
+        <ul class = "img-thumbnail meu-ul">
+            {% for lista in lista_videos %}
+            {% if current_user.id == lista.id_user %}
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <button class="btn btn-primary me-md-2" type="button">Incluir</button>
+              <button class="btn btn-primary" type="button">Editar</button>
+              <button type="button" class="btn btn-danger">Excluir</button>
+            </div>
+            {% endif %}
+            <a href="{{url_for('lista_videos', id = lista.id)}}"><li><h3>{{ lista.titulo}}</h3></li></a>
+
+            
+            {% endfor %}
+        </ul>
+    
+      </div>
+      {% endblock conteudo %}
+
+    {% block footer %}
+  <!-- Anúncio Lateral Esquerdo -->
+  <div class="anuncio-lateral" style="left: 0;">
+    <div class="d-block">
+      <img class="img-fluid" src="{{url_for('static',filename = 'anuncio_pe.png')}}">
+    </div>
+    
+  </div>
+  {% endblock footer %}

@@ -5,11 +5,20 @@
 {% endblock header %}
 {% block conteudo %}
   <div class="row mb-3 col-md-6 offset-md-3">
-    <ul>
+    
+    <ul class = "img-thumbnail meu-ul">
         {% for lista in lista_videos %}
-        <li>{{ lista.titulo}}</li>
+        {% if current_user.id == lista.id_user %}
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button class="btn btn-primary me-md-2" type="button">Incluir</button>
+          <button class="btn btn-primary" type="button">Editar</button>
+          <button type="button" class="btn btn-danger">Excluir</button>
+        </div>
+        {% endif %}
+        <li><h3>{{ lista.titulo}}</h3></li>
+        
         {% for video in videos%}         
-         <video width="320" height="240" controls>
+         <video class="meu_video" width="640" height="360" controls>
           <source src="{{ url_for('static', filename = video.url_video)}}" type="video/mp4">        
         </video>
          
