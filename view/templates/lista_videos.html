@@ -8,21 +8,26 @@
     
     <ul class = "img-thumbnail meu-ul">
         {% for lista in lista_videos %}
-        {% if current_user.id == lista.id_user %}
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-          <button class="btn btn-primary me-md-2" type="button">Incluir</button>
-          <button class="btn btn-primary" type="button">Editar</button>
-          <button type="button" class="btn btn-danger">Excluir</button>
-        </div>
-        {% endif %}
-        <li><h3>{{ lista.titulo}}</h3></li>
+
+        <div class="card">
+          <h5 class="card-header">{{ lista.titulo}}
+             {% if current_user.id == lista.id_user %}
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <button class="btn btn-primary me-md-2" type="button">Incluir</button>
+              <button class="btn btn-primary" type="button">Editar</button>
+              <button type="button" class="btn btn-danger">Excluir</button>
+            </div>
+            {% endif %}</h5>             
+          <div class="card-body">
+            {% for video in videos%}
+            <h5 class="card-title">{{video.titulo}}</h5>
+            <video class="meu_video" width="640" height="360" controls>
+              <source src="{{ url_for('static', filename = video.url_video)}}" type="video/mp4">        
+            </video> 
+            {% endfor%}           
+          </div>
+        </div>        
         
-        {% for video in videos%}         
-         <video class="meu_video" width="640" height="360" controls>
-          <source src="{{ url_for('static', filename = video.url_video)}}" type="video/mp4">        
-        </video>
-         
-        {% endfor%}
         {% endfor %}
     </ul>
 
