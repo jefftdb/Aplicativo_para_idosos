@@ -13,7 +13,7 @@
           <h5 class="card-header">{{ lista.titulo}}
              {% if current_user.id == lista.id_user %}
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-              <button class="btn btn-primary me-md-2" type="button">Incluir</button>
+              <a href="{{url_for('add_video',id_lista = lista.id)}}"><button class="btn btn-primary me-md-2" type="button">Incluir</button></a>
               <button class="btn btn-primary" type="button">Editar</button>
               <button type="button" class="btn btn-danger">Excluir</button>
             </div>

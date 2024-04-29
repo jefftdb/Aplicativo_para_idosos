@@ -10,6 +10,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:1234@localhost/idosos'
 
 app.config['SECRET_KEY'] = 'secret'
 
+UPLOAD_FOLDER = './data'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1000 * 1000
+
 
 
 login_manager = LoginManager(app)
@@ -19,4 +23,4 @@ from controller.login_controller import *
 from controller.lista_videos_controller import *
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
