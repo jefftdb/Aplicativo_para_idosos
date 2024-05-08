@@ -45,17 +45,19 @@
           <h5 class="card-header">{{ lista.titulo}}
              {% if current_user.id == lista.id_user %}
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-              <a href="{{url_for('add_video',id_lista = lista.id)}}"><button class="btn btn-primary me-md-2" type="button">Incluir</button></a>
+              <a href="{{url_for('add_video',id_lista = lista.id,id_user = lista.id_user)}}"><button class="btn btn-primary me-md-2" type="button">Incluir</button></a>
               <button class="btn btn-primary" type="button">Editar</button>
-              <button type="button" class="btn btn-danger">Excluir</button>
+              <a href="{{url_for('deletar',id_lista = lista.id,id_user = lista.id_user)}}"><button type="button" class="btn btn-danger">Excluir</button></a>
             </div>
             {% endif %}</h5>             
           <div class="card-body">
             {% for video in videos%}
+            {% if video.id_lista == lista.id %}
             <h5 class="card-title">{{video.titulo}}</h5>
             <video class="meu_video" width="640" height="360" controls>
               <source src="{{ url_for('static', filename = video.url_video)}}" type="video/mp4">        
-            </video> 
+            </video>
+            {% endif %}
             {% endfor%}           
           </div>
         </div>        

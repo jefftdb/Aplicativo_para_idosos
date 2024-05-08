@@ -29,12 +29,18 @@ def lista_videos(id):
     return render_template('lista_videos.html',lista_videos = todas_as_listas,videos = videos,categorias = categorias)
 
 
-     
+@app.route('/deletar/<id_lista>/<id_user>')
+def deletar(id_lista,id_user):
+   
+    Video.query.filter_by(id_lista = id_lista).delete()
+    Lista_videos.query.filter_by(id = id_lista).delete()
+    db.session.commit()
+      
+    return redirect(url_for('lista_videos', id = id_user) )
 
 
-
-@app.route('/add_video/<id_lista>',methods = ['GET','POST'])
-def add_video(id_lista):
+@app.route('/add_video/<id_lista>/<id_user>',methods = ['GET','POST'])
+def add_video(id_lista,id_user):
     if request.method == 'POST':
         titulo = request.form['titulo']
         arquivo = request.files['video']
@@ -47,7 +53,7 @@ def add_video(id_lista):
         db.session.add(video)
         db.session.commit()
 
-        return redirect(url_for('lista_videos', id = id_lista) )
+        return redirect(url_for('lista_videos', id = id_user) )
     else:
         return render_template('add_video.html')
 
