@@ -15,10 +15,14 @@ class Categoria(db.Model):
 class Lista_videos(db.Model):
     __tablename__ = 'lista_videos'
     id = db.Column(db.Integer, autoincrement = True, primary_key=True)
-    url_lista = db.Column(db.String(255),nullable = False)
     titulo = db.Column(db.String(255),nullable = False)
     id_user = db.Column(db.Integer, db.ForeignKey("users.id"))
     id_categoria = db.Column(db.Integer, db.ForeignKey("categoria.id"))
+
+    def __init__(self,titulo,id_user,id_categoria) -> None:
+        self.titulo = titulo
+        self.id_user = id_user
+        self.id_categoria = id_categoria
 
    
     def get_lista_videos(self):
@@ -37,8 +41,12 @@ class Video(db.Model):
     url_video = db.Column(db.String(255),nullable = False)
     id_lista = db.Column(db.Integer, db.ForeignKey("lista_videos.id"))
 
-    def get_videos(self,id):        
-        return Video().query.filter_by(id_lista = id) 
+    def __init__(self,titulo,url_video,id_lista) -> None:
+        self.titulo = titulo
+        self.url_video = url_video
+        self.id_lista = id_lista
+
+    
     
 
 class Lista_favorito(db.Model):

@@ -10,7 +10,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:1234@localhost/idosos'
 
 app.config['SECRET_KEY'] = 'secret'
 
-UPLOAD_FOLDER = './data'
+UPLOAD_FOLDER = "./view/static/data"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1000 * 1000
 

@@ -1,30 +1,53 @@
-from app import app
+from app import app,db
 from flask import render_template,request,redirect,url_for
-from model.video_model import Lista_videos,Video
+from model.video_model import Lista_videos,Video,Categoria
 from model.login_model import User
 import os
 from werkzeug.utils import secure_filename
+from Utils.utils import Utils
+
+utilitario = Utils()
 
 
-@app.route('/lista_videos/<id>')
+@app.route('/lista_videos/<id>',methods = ['GET','POST'])
 def lista_videos(id):
-  
-    todas_as_listas = Lista_videos().get_lista_user(id)
-    videos = Video().get_videos(id)
+    if request.method == 'POST':
+        titulo = request.form['titulo']
+        user_id= request.form['user_id']
+        categoria = request.form['categoria']
 
-    return render_template('lista_videos.html',lista_videos = todas_as_listas,videos = videos)
+        nova_lista = Lista_videos(titulo,user_id,categoria)
+        
+        db.session.add(nova_lista)
+        db.session.commit()
+
+      
+    todas_as_listas = Lista_videos.query.filter_by(id_user = id)
+    videos = Video.query.all()
+    categorias = Categoria.query.all()
+
+    return render_template('lista_videos.html',lista_videos = todas_as_listas,videos = videos,categorias = categorias)
+
+
+     
+
+
 
 @app.route('/add_video/<id_lista>',methods = ['GET','POST'])
 def add_video(id_lista):
     if request.method == 'POST':
         titulo = request.form['titulo']
-        video = request.files['video']
-        filename = secure_filename(video.filename)
-        video.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        arquivo = request.files['video']
+        filename = utilitario.set_name()
+        arquivo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        url_video = 'data/' + filename
 
-        print(titulo)
-        print(video)
-        return 'metodo post'
+        video = Video(titulo,url_video,id_lista)
+
+        db.session.add(video)
+        db.session.commit()
+
+        return redirect(url_for('lista_videos', id = id_lista) )
     else:
         return render_template('add_video.html')
 
