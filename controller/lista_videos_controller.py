@@ -28,6 +28,10 @@ def lista_videos(id):
 
     return render_template('lista_videos.html',lista_videos = todas_as_listas,videos = videos,categorias = categorias)
 
+@app.route('/exibir_videos/<id_lista>')
+def exibir_videos(id_lista):
+    return render_template( 'exibir_curso.html', lista_videos = Lista_videos.query.filter_by(id= id_lista),videos = Video.query.filter_by(id_lista = id_lista))
+
 
 @app.route('/deletar/<id_lista>/<id_user>')
 def deletar(id_lista,id_user):
@@ -72,4 +76,5 @@ def lista_favoritos(id):
 
 @app.route('/todas_as_listas')
 def todas_as_listas():
-     return render_template("todas_as_listas.html",lista_videos = Lista_videos().get_lista_videos())
+     
+     return render_template("todas_as_listas.html",lista_videos = Lista_videos.query.all(),videos = Video.query.all())
